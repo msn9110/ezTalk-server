@@ -4,6 +4,7 @@ static
 jieba
 **/__pycache__
 /cmodels/correct_tests.txt
+/config/settings.json
 /evaluate/news_ptt_f3_results.json
 /evaluate/results.json
 /evaluate/results-3.json

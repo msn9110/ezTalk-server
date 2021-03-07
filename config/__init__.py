@@ -71,6 +71,10 @@ def __load_general_setting(path):
 
 
 _general_setting_path = os.path.join(CONFIG_DIR, 'settings.json')
+if not os.path.exists(_general_setting_path):
+    import shutil
+    shutil.copy(os.path.join(CONFIG_DIR, 'settings_template.json'), _general_setting_path)
+
 __load_general_setting(_general_setting_path)
 
 
@@ -153,7 +157,7 @@ def sign_up(account):
         if __hpsw_pattern.match(password) and __email_pattern.match(e_mail):
             accounts[user] = {"e_mail": e_mail, "password": password}
 
-            src = os.path.join(CONFIG_DIR, 'user_templete')
+            src = os.path.join(CONFIG_DIR, 'user_template')
             dst = os.path.join(USERS_DIR, user)
 
             if not os.path.exists(dst):
