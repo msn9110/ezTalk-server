@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang = "en" dir = "ltr">
+    <head>
+        <meta charset = "utf-8">
+
+        <title>Pinyin Transformer</title>
+    </head>
+    <body>
+        <h1>Pinyin Result</h1>
+        <form action="/api/postpinyin" method="POST">
+            <p>Convert &nbsp;&nbsp;  {{ raw }} : {{ get_in }}</p>
+            <br /><br />
+            <input type="text" name="input" value="{{ get_in }}" size="35">
+            <input type="submit" value="change">
+            <input type="hidden" name="raw_in" value="{{raw}}"/>
+        </form>
+        <br /><br />
+        <form action="/pinyin_page" method="POST">
+            <input type="submit" value="Don't change" />
+            <input type="hidden" name="raw_in" value="{{raw}}"/>
+        </form>
+
+    </body>
+</html>

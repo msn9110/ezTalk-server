@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>settings</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+            ul {
+                display: inline-block;
+            }
+
+            li {
+                display: block;
+                margin: 20px;
+            }
+            li1 {
+                display: block;
+                margin: 20px;
+            }
+            li2 {
+                display: block;
+                margin: 20px;
+            }
+            li3 {
+                display: block;
+                margin: 20px;
+            }
+            li4 {
+                display: block;
+                margin: 20px;
+            }
+            li5 {
+                display: block;
+                margin: 20px;
+            }
+            li11 {
+                display: block;
+                margin: 20px;
+            }
+            li22 {
+                display: block;
+                margin: 20px;
+            }
+            li33 {
+                display: block;
+                margin: 20px;
+            }
+            li44 {
+                display: block;
+                margin: 20px;
+            }
+            li55 {
+                display: block;
+                margin: 20px;
+            }
+
+            .boxName{
+                padding: 10px 180px 10px 180px;
+                background-color: #90a955;
+                color: #fff;
+            }
+
+            .box {
+                padding: 15px;
+                background-color: #ebf9de;
+                display: none;
+            }
+    </style>
+</head>
+<body>
+<h1>Settings restful</h1>
+<p>查詢及修改settings.json</p>
+<form action="/get_settings">
+    <input type="submit" value="查詢" />
+</form>
+<hr />
+<form action="/modify_settings" id="usrform"  method = "POST">
+    <ul>
+        <li>
+            <input type="submit">
+        </li>
+        <li>
+            <p>"data_set_root"<textarea cols="40" rows="1" name="data_set_root" form="usrform">{{ data["data_set_root"]  }}</textarea></p>
+        </li>
+        <li>
+            <p>"source"<textarea cols="40" rows="1" name="source" form="usrform">{{ data["source"]  }}</textarea></p>
+        </li>
+        <li>
+            <p>"sentence"<textarea cols="40" rows="1" name="sentence" form="usrform">{{ data["sentence"]  }}</textarea></p>
+        </li>
+        <li>
+            <p>"_background_noise_"<textarea cols="50" rows="1" name="_background_noise_" form="usrform">{{ data["_background_noise_"]  }}</textarea></p>
+        </li>
+        <li>
+            <p>"training_set_root"<textarea cols="40" rows="1" name="training_set_root" form="usrform">{{ data["training_set_root"]  }}</textarea></p>
+        </li>
+        <li>
+            <p>"testing_set"<textarea cols="40" rows="1" name="testing_set" form="usrform">{{ data["testing_set"]  }}</textarea></p>
+        </li>
+        <li>
+            <p>"clip_duration"<textarea cols="10" rows="1" name="clip_duration" form="usrform">{{ data["clip_duration"]  }}</textarea></p>
+        </li>
+        <li1>
+            <div class="boxName">"model_settings":</div>
+        </li1>
+        <li11>
+            <div class="box">
+            <p>"common_path" <textarea cols="50" rows="1" name="common_path" form="usrform">{{ data["model_settings"]["common_path"]  }}</textarea></p>
+            <p>"date" <textarea cols="10" rows="1" name="date" form="usrform">{{ data["model_settings"]["date"]  }}</textarea></p>
+            <p>"training_times" <textarea cols="10" rows="1" name="training_times" form="usrform">{{ data["model_settings"]["training_times"]  }}</textarea></p>
+            <p>"clip_duration" <textarea cols="10" rows="1" name="clip_duration1" form="usrform">{{ data["model_settings"]["clip_duration"]  }}</textarea></p>
+            </div>
+        </li11>
+        <li2>
+            <div class="boxName">"data_path":</div>
+        </li2>
+        <li22>
+            <div class="box">
+            <p>"semantic" <textarea cols="50" rows="1" name="semantic" form="usrform">{{ data["data_path"]["semantic"]  }}</textarea></p>
+            <p>"header" <textarea cols="50" rows="1" name="header" form="usrform">{{ data["data_path"]["header"]  }}</textarea></p>
+            <p>"word_freq" <textarea cols="50" rows="1" name="word_freq" form="usrform">{{ data["data_path"]["word_freq"]  }}</textarea></p>
+            <p>"semantic_record" <textarea cols="50" rows="1" name="semantic_record" form="usrform">{{ data["data_path"]["semantic_record"]  }}</textarea></p>
+            <p>"header_record" <textarea cols="50" rows="1" name="header_record" form="usrform">{{ data["data_path"]["header_record"]  }}</textarea></p>
+            <p>"valid_zhuyin" <textarea cols="50" rows="1" name="valid_zhuyin" form="usrform">{{ data["data_path"]["valid_zhuyin"]  }}</textarea></p>
+            <p>"recorded" <textarea cols="60" rows="1" name="recorded" form="usrform">{{ data["data_path"]["recorded"]  }}</textarea></p>
+            </div>
+        </li22>
+        <li3>
+            <div class="boxName">"restful_settings":</div>
+        </li3>
+        <li33>
+            <div class="box">
+            <p>"uploads_dir" <textarea cols="50" rows="1" name="uploads_dir" form="usrform">{{ data["restful_settings"]["uploads_dir"]  }}</textarea></p>
+            <p>"ip" <textarea cols="20" rows="1" name="ip" form="usrform">{{ data["restful_settings"]["ip"]  }}</textarea></p>
+            <p>"port" <textarea cols="10" rows="1" name="port" form="usrform">{{ data["restful_settings"]["port"]  }}</textarea></p>
+            </div>
+        </li33>
+        <li4>
+            <div class="boxName">"training_set_settings":</div>
+        </li4>
+        <li44>
+            <div class="box">
+            <p>"using_all" <textarea cols="10" rows="1" name="using_all" form="usrform">{{ data["training_set_settings"]["using_all"]  }}</textarea></p>
+            <p>"max_num_of_files" <textarea cols="20" rows="1" name="max_num_of_files" form="usrform">{{ data["training_set_settings"]["max_num_of_files"]  }}</textarea></p>
+            <p>"testing_percentage" <textarea cols="20" rows="1" name="testing_percentage" form="usrform">{{ data["training_set_settings"]["testing_percentage"]  }}</textarea></p>
+            <p>"min_num_of_testing" <textarea cols="20" rows="1" name="min_num_of_testing" form="usrform">{{ data["training_set_settings"]["min_num_of_testing"]  }}</textarea></p>
+            </div>
+        </li44>
+        <li5>
+            <div class="boxName">"training_default_values":</div>
+        </li5>
+        <li55>
+            <div class="box">
+            <p>"training_times" <textarea cols="20" rows="1" name="training_times1" form="usrform">{{ data["training_default_values"]["training_times"]  }}</textarea></p>
+            <p>"over_sampling" <textarea cols="10" rows="1" name="over_sampling" form="usrform">{{ data["training_default_values"]["over_sampling"]  }}</textarea></p>
+            </div>
+        </li55>
+    </ul>
+</form>
+<hr />
+<br>
+<br>
+<script>
+
+$(document).ready(function(){
+  $("li1").click(function(){
+    $("li11").find(".box").toggle();
+  });
+});
+$(document).ready(function(){
+  $("li2").click(function(){
+    $("li22").find(".box").toggle();
+  });
+});
+$(document).ready(function(){
+  $("li3").click(function(){
+    $("li33").find(".box").toggle();
+  });
+});
+$(document).ready(function(){
+  $("li4").click(function(){
+    $("li44").find(".box").toggle();
+  });
+});
+$(document).ready(function(){
+  $("li5").click(function(){
+    $("li55").find(".box").toggle();
+  });
+});
+</script>
+
+</body>
+</html>

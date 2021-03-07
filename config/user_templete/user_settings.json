@@ -1,0 +1,39 @@
+{
+  "backup_url": "",
+  "clip_duration": 0.9,
+  "data_path": {
+    "header": "header.json",
+    "header_record": "header_record.json",
+    "n_gram_bonus": "n_gram_bonus.json",
+    "n_gram_prob": "n_gram_prob.json",
+    "n_gram_record": "n_gram_record.json",
+    "semantic": "word_semantic.json",
+    "semantic_record": "semantic_record.json",
+    "stn": "sentence_library.json"
+  },
+  "model_settings": {
+    "enable_cmodel": true,
+    "model_mode": 0,
+    "name": ""
+  },
+  "training_default_values": {
+    "over_sampling": false,
+    "training_times": "30000"
+  },
+  "training_set_settings": {
+    "max_num_of_files": 25,
+    "min_num_of_testing": 0,
+    "testing_percentage": 10.0,
+    "using_all": true,
+    "validation_percentage": 10.0
+  },
+  "voice_data_path": {
+    "_background_noise_": "",
+    "prepared_testing_set": "",
+    "sentence": "sentence",
+    "source": "source",
+    "testing_set": "testing",
+    "training_set_root": "training",
+    "uploads_dir": "uploads"
+  }
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comparison</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+                :root {
+                 --width: 10px
+                }
+                .thumbnail:hover {
+                position:relative;
+                top:-25px;
+                left:-35px;
+                width:80%;
+                height:80%;
+                display:block;
+                z-index:999;
+                }
+                ul {
+                    display: inline-block;
+                }
+
+                li {
+                    display: block;
+                    margin: 10px;
+                }
+
+                .picName{
+                    padding: 10px 500px 10px 500px;
+                    background-color: #90a955;
+                    color: #fff;
+                }
+
+                .pic {
+                    padding: 15px;
+                    background-color: #ebf9de;
+                    display: none;
+                }
+
+
+    </style>
+</head>
+<body>
+<img src="/static/{{ user }}/comparison/音節比較.png" class="thumbnail" width="50%" alt="音節無法比較"><br>
+
+<img src="/static/{{ user }}/comparison/cdf.png" class="thumbnail" width="50%" alt="音節無法比較"><br>
+
+<ul>
+
+      <li>
+    <div class="picName">Pronunciation 95% Comparison</div>
+    <div class="pic"><img src="/static/{{ user }}/comparison/95cmp.png" width="100%" alt="無法比較">
+</div>
+  <li>
+    <div class="picName">Consonant Comparison(聲母比較)</div>
+    <div class="pic"><img src="/static/{{ user }}/comparison/聲母比較.png" width="100%" alt="聲母無法比較">
+</div>
+  </li>
+  <li>
+    <div class="picName">Vowel Comparison(韻母比較)</div>
+    <div class="pic"><img src="/static/{{ user }}/comparison/韻母比較.png" width="100%" alt="韻母無法比較">
+</div>
+  </li>
+  <li>
+    <div class="picName">Sound Comparison(介音比較)</div>
+    <div class="pic"><img src="/static/{{ user }}/comparison/介音比較.png" width="100%" alt="介音無法比較">
+</div>
+  </li>
+</ul>
+
+
+{% for a in info %}
+  <p>{{ a }}</p>
+{% endfor %}
+
+<script>
+$("li").click(
+ function() {
+  $(this).find(".pic").toggle();
+ }
+);
+</script>
+
+</body>
+</html>

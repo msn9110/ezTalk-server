@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang = "en" dir = "ltr">
+    <head>
+        <meta charset = "utf-8"/>
+        
+        <title>Pinyin Transformer</title>
+    </head>
+    <body>
+        <h1>Pinyin Transformer</h1>
+        <br /><br />
+
+        <form action="/api/getpinyin" method="POST">
+            
+            <p>Add {{ raw }} : {{ post_in }}</p>
+            <p>You have: {{ exist }}</p>
+            <p>Search the Pinyin: </p>
+            <input type="text" name="input" />
+            <input type="submit" value="search" />
+        </form>
+        
+    </body>
+</html>

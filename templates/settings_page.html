@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>settings</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+            ul {
+                display: inline-block;
+            }
+
+            li {
+                display: block;
+                margin: 20px;
+            }
+            li1 {
+                display: block;
+                margin: 20px;
+            }
+            li2 {
+                display: block;
+                margin: 20px;
+            }
+            li3 {
+                display: block;
+                margin: 20px;
+            }
+            li4 {
+                display: block;
+                margin: 20px;
+            }
+            li5 {
+                display: block;
+                margin: 20px;
+            }
+            li11 {
+                display: block;
+                margin: 20px;
+            }
+            li22 {
+                display: block;
+                margin: 20px;
+            }
+            li33 {
+                display: block;
+                margin: 20px;
+            }
+            li44 {
+                display: block;
+                margin: 20px;
+            }
+            li55 {
+                display: block;
+                margin: 20px;
+            }
+
+            .boxName{
+                padding: 10px 180px 10px 180px;
+                background-color: #90a955;
+                color: #fff;
+            }
+
+            .box {
+                padding: 15px;
+                background-color: #ebf9de;
+                display: none;
+            }
+    </style>
+</head>
+<body>
+<h1>Settings restful</h1>
+<p>查詢及修改settings.json</p>
+<form action="/get_settings/{{ user }}">
+    <input type="submit" value="查詢" />
+</form>
+<hr />
+<form action="/modify_settings/{{ user }}" id="usrform"  method = "POST">
+    <ul>
+        <li>
+            <input type="submit">
+        </li>
+        {% for t, v, l in data %}
+            {% if v != '$+$'%}
+                <li>
+                    <p> {{ t }} </p>
+                    <textarea cols="60" rows="1" name="{{ t.split('/')[-1] }}"
+                    form="usrform">{{ v }}</textarea>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+
+    </ul>
+</form>
+<hr />
+<br>
+<br>
+<script>
+
+$(document).ready(function(){
+  $("li1").click(function(){
+    $("li11").find(".box").toggle();
+  });
+});
+$(document).ready(function(){
+  $("li2").click(function(){
+    $("li22").find(".box").toggle();
+  });
+});
+$(document).ready(function(){
+  $("li3").click(function(){
+    $("li33").find(".box").toggle();
+  });
+});
+$(document).ready(function(){
+  $("li4").click(function(){
+    $("li44").find(".box").toggle();
+  });
+});
+$(document).ready(function(){
+  $("li5").click(function(){
+    $("li55").find(".box").toggle();
+  });
+});
+</script>
+
+</body>
+</html>

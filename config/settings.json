@@ -1,0 +1,32 @@
+{
+  "accounts": {
+    "msn9110": {
+      "e_mail": "msn91102@gmail.com",
+      "password": "113459eb7bb31bddee85ade5230d6ad5d8b2fb52879e00a84ff6ae1067a210d3"
+    },
+    "s922128946": {
+      "e_mail": "s922128946@gmail.com",
+      "password": "ccd54b3469be86754f6b69da74e81be3154cd55a1871bf05e877e0da1d3c5a87"
+    }
+  },
+  "background_noise": "/home/hungshing/FastData/ezTalk/_background_noise_",
+  "data_path": {
+    "classes": "classes.json",
+    "n_gram_bonus": "n_gram_bonus.json",
+    "n_gram_prob": "n_gram_prob.json",
+    "pinyin": "pinyin.json",
+    "valid_zhuyin": "valid_zhuyin.txt",
+    "word_default_weights": "word_default_weights.json",
+    "zmap": "map.json",
+    "pron_sims": "pron_sims2.json",
+    "sims": "sim.json",
+    "sim_tables": "sim_tables.json"
+  },
+  "remote_backup_url": "http://localhost:56517/get_files",
+  "restful_settings": {
+    "ip": "192.168.119.119",
+    "port": 56312,
+    "service_port": "56517"
+  },
+  "uid": "msn9110"
+}
