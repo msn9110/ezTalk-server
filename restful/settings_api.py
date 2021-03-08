@@ -67,7 +67,7 @@ def settings_page(user):
 
     s = parse(data)
     data = [(k, str(v[1]), v[-1])
-            if v[1] else (k[:-1], '$+$', v[-1])
+            if v[1] is not None else (k.rstrip('/'), '$+$', v[-1])
             for k, v in sorted(s.items(),
                                key=lambda it: (it[1][-1], it[0]))]
     return render_template('settings_page.html', data=data, user=user)

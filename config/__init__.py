@@ -59,7 +59,7 @@ def __load_general_setting(path):
 
     general_settings['background_noise'] = general_settings['background_noise'] \
         if general_settings['background_noise'].startswith('/') \
-        else os.path.join(ROOT, general_settings['background_noise'])
+        else os.path.join(SYSTEM_PATH, 'data', general_settings['background_noise'])
     restful_settings = general_settings['restful_settings']
     uid = general_settings['uid']
     general_data_path = {k: v if v.startswith('/') else os.path.join(SYSTEM_PATH, 'data', v)

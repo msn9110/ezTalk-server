@@ -1,5 +1,5 @@
 {
-  "background_noise": "data/_background_noise_",
+  "background_noise": "_background_noise_",
   "data_path": {
     "classes": "classes.json",
     "n_gram_bonus": "n_gram_bonus.json",
