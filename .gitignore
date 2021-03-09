@@ -19,3 +19,4 @@ jieba
 /data/pre.txt
 /data/news_n_gram_bonus.json
 /data/news_n_gram_prob.json
+/data/_background_noise_/*

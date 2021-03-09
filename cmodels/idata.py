@@ -3,7 +3,7 @@ from six.moves import xrange
 import sys
 sys.path.append('../')
 
-from cmodels import which_set, duplicate_data
+from cmodels import which_set, duplicate_data, general_data_path
 from phoneme import indexes, zindexes, rev_zindexes, optionals, valid_zhuyins
 
 epsilon = 1e-10
@@ -72,7 +72,6 @@ class DataProcessor:
             self.data[filename] = rec
             self.data_index[d_index].append({'file': filename, 'label': ground_truth})
 
-        '''
         # include valid pinyin to training set
         with open(general_data_path['pinyin']) as f:
             data = json.load(f)
@@ -86,7 +85,7 @@ class DataProcessor:
                 continue
             self.data[filename] = rec
             self.data_index[d_index].append({'file': filename, 'label': ground_truth})
-        '''
+
 
         if self.balance_data:
             self.data_index['training'] = duplicate_data(self.data_index['training'])
