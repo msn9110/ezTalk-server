@@ -26,58 +26,20 @@ def create_model(fingerprint_input, model_settings, is_training=False):
     input_l = Reshape([model_settings['num_inputs']], name='input')(fingerprint_input)
 
     print(input_l)
-    begin = 0
-    input_tensors = []
+    # tf.random.normal([])
+    # 1 / ln 2 ~ 1.442695
+    scalars = tf.Variable(tf.random.normal([]),
+                          dtype=tf.float32, name='scalar', trainable=True)
+    bias = tf.Variable(initial_value=0.05, dtype=tf.float32, name='bias',
+                       trainable=True)
+    processed_tensor = tf.add(tf.multiply(scalars, tf.math.log(input_l)), bias, 'processed')
+    print(processed_tensor)
 
-    for name_num, unit in enumerate(input_units, 1):
-        input_tensor = tf.slice(input_l, [0, begin], [-1, unit], name='input_{0:d}'.format(name_num))
-        print(input_tensor)
-        input_tensors.append(input_tensor)
-        begin += unit
-
-    processed_tensors = []
-
-    for name_num, tensor in enumerate(input_tensors, 1):
-        # tf.random.normal([])
-        # 1 / ln 2 ~ 1.442695
-        scalars = tf.Variable(tf.random.normal([]),
-                              dtype=tf.float32, name='scalar_{0:d}'.format(name_num), trainable=True)
-        bias = tf.Variable(initial_value=0.05, dtype=tf.float32, name='bias_{0:d}'.format(name_num),
-                           trainable=True)
-        t = tf.add(tf.multiply(scalars, tf.math.log(tensor)), bias, 'processed_{0:d}'.format(name_num))
-        print(t)
-        processed_tensors.append(t)
-
-    hidden_units_l = [
-        [],
-        [],
-        []
-    ]
-
-    hidden_tensors = []
-    for name_num, tensor in enumerate(processed_tensors):
-        hidden_units = hidden_units_l[name_num]
-        name_num += 1
-        for units in hidden_units:
-            if units > 0:
-                tensor = tf.keras.layers.Dense(units)(tensor)
-                if is_training:
-                    tensor = tf.keras.layers.Dropout(dropout_prob)(tensor)
-                else:
-                    if units == 0:
-                        tensor = tf.keras.layers.ReLU()(tensor)
-                    else:
-                        tensor = tf.keras.layers.ELU()(tensor)
-        hidden_tensors.append(tensor)
-
-    if not hidden_tensors:
-        hidden_tensors = processed_tensors
-
-    prev_l = tf.concat(hidden_tensors, -1)
-    print(prev_l)
+    prev_l = processed_tensor
 
     relu_count = 1
     dense_count = 1
+
     # construct full-connected hidden layers
     for units in num_hidden_nodes:
         if units == 0:
@@ -100,7 +62,6 @@ def create_model(fingerprint_input, model_settings, is_training=False):
         else:
             dropout_l = hidden
         prev_l = dropout_l
-
 
     output_l = Dense(model_settings['num_outputs'], name='output')(prev_l)
     if is_training:

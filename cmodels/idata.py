@@ -63,9 +63,11 @@ class DataProcessor:
         with open(json_path) as f:
             data = json.load(f)
 
+        flag = True
         for filename, v in data.items():
             d_index = which_set(filename, validation_percentage, testing_percentage)
             in_, ground_truth = v
+            flag = not (len(in_) == 2)
             rec = make_record(in_, ground_truth)
             if not rec:
                 continue
@@ -73,19 +75,23 @@ class DataProcessor:
             self.data_index[d_index].append({'file': filename, 'label': ground_truth})
 
         # include valid pinyin to training set
-        with open(general_data_path['pinyin']) as f:
-            data = json.load(f)
-        d_index = 'training'
+        if flag and False:
+            with open(general_data_path['pinyin']) as f:
+                data = json.load(f)
+            d_index = 'training'
 
-        for filename, v in data.items():
+            st = len(indexes[1])
+            sm = len(indexes[2])
 
-            in_, ground_truth = v
-            rec = make_record(in_, ground_truth)
-            if not rec:
-                continue
-            self.data[filename] = rec
-            self.data_index[d_index].append({'file': filename, 'label': ground_truth})
+            for filename, v in data.items():
 
+                in_, ground_truth = v
+                in_ = [in_[:st], in_[st:st + sm], in_[st + sm:]]
+                rec = make_record(in_, ground_truth)
+                if not rec:
+                    continue
+                self.data[filename] = rec
+                self.data_index[d_index].append({'file': filename, 'label': ground_truth})
 
         if self.balance_data:
             self.data_index['training'] = duplicate_data(self.data_index['training'])

@@ -13,10 +13,6 @@ jieba
 /evaluate/results-5.json
 /evaluate/results-ensemble.json
 /evaluate/results-ensemble-2.json
-/data/suf.txt
-/data/simularity.json
-/data/sim_tables.json
-/data/pre.txt
 /data/news_n_gram_bonus.json
 /data/news_n_gram_prob.json
 /data/_background_noise_/*
