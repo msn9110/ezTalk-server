@@ -19,7 +19,7 @@ def fill(settings, new_settings):
     new = parse(new_settings)
     for k, v in old.items():
         # this item is sub-dict
-        if not v[1]:
+        if v[1] is None:
             continue
 
         # check type is bool
@@ -105,7 +105,6 @@ def modify_settings(user):
             to_fill = False
         except:
             new_settings = request.form
-            print(new_settings)
         data = modify(data, new_settings, json_url, to_fill)
         trigger_reloading()
     return render_template('showjson.html', user=user, data=data)

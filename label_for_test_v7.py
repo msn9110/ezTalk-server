@@ -60,7 +60,7 @@ def main():
     # load model
     model = AcousticModels([graph], [labels])
     # input name
-    input_name = 'wav_data:0'
+    input_name = 'file'
     # output name
     output_name = 'labels_softmax:0'
     # how many labels that needs to show
