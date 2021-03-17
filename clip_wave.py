@@ -64,21 +64,22 @@ class WaveClip:
                 point = -32767
         return np.array(tmp, dtype=np.int16)
 
-    def clipWave_toFile(self, outputPath='', duration_sec=1.0, shift_size=10, addNoise=False):
-        if len(outputPath) == 0:
-            outputPath = re.sub(self.name + '$', '', os.path.abspath(self.path)) + \
+    def clipWave_toFile(self, output_path='', duration_sec=1.0, shift_size=10, add_noise=False,
+                        randomly=False):
+        if len(output_path) == 0:
+            output_path = re.sub(self.name + '$', '', os.path.abspath(self.path)) + \
                          'clip-' + self.name
-        if addNoise:
-            outputPath = re.sub('.wav$', '', outputPath) + '-with_noise.wav'
-            clip_wave = self.clipWithNoise('./_background_noise_', duration_sec, shift_size)
+
+        if randomly:
+            clip_wave = self.randomClip(duration_sec)
         else:
-            clip_wave = clipWave(self.wave_data, self.framerate, duration_sec, shift_size)
-        outfile = wave.open(outputPath, 'wb')
-        outfile.setparams(self.params)
-        outfile.setnframes(len(clip_wave))
-        outfile.writeframes(clip_wave)
-        outfile.close()
-        return os.path.abspath(outputPath)
+            if add_noise:
+                output_path = re.sub('.wav$', '', output_path) + '-with_noise.wav'
+                clip_wave = self.clipWithNoise('./_background_noise_', duration_sec, shift_size)
+            else:
+                clip_wave = clipWave(self.wave_data, self.framerate, duration_sec, shift_size)
+
+        return write_wave(clip_wave, output_path, self.params)
 
     def is_perfect_wave(self, desire_duration=1.0, frame_sec=0.01):
         base_vol = 327.67
@@ -173,6 +174,15 @@ def clipWave(wave_data, framerate, duration_sec=0.8, shift_size=10):
                 max_abs_mean = current_abs_mean
                 offset = i
         return wave_data[offset:offset + duration_size]
+
+
+def write_wave(wave_data, output_path, params):
+    outfile = wave.open(output_path, 'wb')
+    outfile.setparams(params)
+    outfile.setnframes(len(wave_data))
+    outfile.writeframes(wave_data)
+    outfile.close()
+    return os.path.abspath(output_path)
 
 if __name__ == '__main__':
     import matplotlib.pyplot as plt

@@ -9,6 +9,9 @@ for v in element.values():
     prefixes.add(v[0])
     suffixes.add(v[1])
 
+with open(general_data_path['selected']) as f:
+    selected = f.read().split('\n')
+
 # include optional label
 _i_opt = 1
 _o_opt = 1
@@ -18,7 +21,8 @@ optionals = [['_unknown_', '_silence_'],
              ['_unknown_2', '_silence_2'],
              ['_unknown_3', '_silence_3'],
              ['_unknown_4', '_silence_4'],
-             ['_unknown_5', '_silence_5']]
+             ['_unknown_5', '_silence_5'],
+             ['_unknown_6', '_silence_6']]
 _c = 1
 tops = optionals[_i_opt * _c][:_s_opt[0]] + \
        ['no_label1'] + [chr(i) for i in range(0x3105, 0x311a)]
@@ -32,10 +36,12 @@ _c += 1
 prefs = optionals[_i_opt * _c][:_s_opt[0]] + list(sorted(prefixes))
 _c += 1
 suffs = optionals[_i_opt * _c][:_s_opt[0]] + list(sorted(suffixes))
+_c += 1
+sels = optionals[_i_opt * _c][:_s_opt[0]] + list(sorted(selected))
 _c = 0
 # input converter
 indexes = [{k: i for i, k in enumerate(l)}
-           for l in [tops, mids, bots, prefs, suffs]]
+           for l in [tops, mids, bots, prefs, suffs, sels]]
 rev_indexes = [{l[k]: k for k in l.keys()}
                for l in indexes]
 
@@ -51,6 +57,7 @@ indexes = [zindexes] + indexes
 rev_indexes = [rev_zindexes] + rev_indexes
 
 sim_tables = read_json(general_data_path['sim_tables'])
+
 
 def get_syllable(wav_label, mode=''):
     m = {'top': '1', 'mid': '2', 'bot': '3'}
@@ -78,7 +85,7 @@ def get_syllable(wav_label, mode=''):
     return get_label(syllable)
 
 
-mmap = {m: i for i, m in enumerate(['all', 'top', 'mid', 'bot', 'pre', 'suf'])}
+mmap = {m: i for i, m in enumerate(['all', 'top', 'mid', 'bot', 'pre', 'suf', 'sel'])}
 idx_mode = {i: m for m, i in mmap.items()}
 
 

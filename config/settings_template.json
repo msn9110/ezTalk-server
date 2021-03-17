@@ -10,7 +10,8 @@
     "zmap": "map.json",
     "pron_sims": "pron_sims2.json",
     "sims": "sim.json",
-    "sim_tables": "sim_tables.json"
+    "sim_tables": "sim_tables.json",
+    "selected": "selected.txt"
   },
   "remote_backup_url": "http://localhost:56517/get_files",
   "restful_settings": {

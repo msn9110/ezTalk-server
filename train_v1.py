@@ -378,7 +378,7 @@ def main(_):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--mode',
+        '--mode', '-m',
         type=int,
         default=0,
         help='0,1,2,3,4')

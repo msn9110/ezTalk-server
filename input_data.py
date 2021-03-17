@@ -11,7 +11,7 @@ import tensorflow as tf
 from tensorflow.python.platform import gfile
 from tensorflow.python.util import compat
 
-from phoneme import zelements, optionals, zindexes, idx_mode, sim_tables
+from phoneme import zelements, optionals, zindexes, idx_mode, sim_tables, sels
 
 tf = tf.compat.v1
 
@@ -349,7 +349,9 @@ class AudioProcessor(object):
             # If it's a known class, store its detail, otherwise add it to the list
             # we'll use to train the unknown label.
             if word in zindexes:
-                label = ([word] + zelements[word])[self.mode]
+                label = ([word] + zelements[word])[self.mode % 6]
+                if self.mode == 6 and label not in sels:
+                    continue
                 wanted_words.add(label)
                 self.data_index[set_index].append({'label': label, 'file': wav_path})
             else:
@@ -358,7 +360,6 @@ class AudioProcessor(object):
 
         if not wanted_words:
             raise Exception('No .wavs found at ' + search_path)
-
 
         labels = optionals[self.mode] + list(sorted(wanted_words))
         if self.BALANCE_DATA:
@@ -390,9 +391,11 @@ class AudioProcessor(object):
                 label = optionals[self.mode][UNKNOWN_WORD_INDEX]
                 word = word.lower()
                 if word in zindexes:
-                    l = ([word] + zelements[word])[self.mode]
+                    l = ([word] + zelements[word])[self.mode % 6]
                     if l in wanted_words:
                         label = l
+                    elif self.mode == 6:
+                        continue
                 testing_set.append({'label': label, 'file': wav_path})
             if testing_set:
                 self.data_index['testing'] = testing_set
