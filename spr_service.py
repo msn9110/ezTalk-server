@@ -156,7 +156,7 @@ def recognize():
                     possible_lists, sentence_rec, stns\
                         = cs.syllables_to_sentence(wavefiles, settings, 5, enable=True,
                                                    num_of_stn=num_of_stn,
-                                                   by_construct=True, include_construct=True,
+                                                   by_construct=False, include_construct=True,
                                                    intelli_select=True,
                                                    n_gram_method=4, enable_forget=True
                                                    )

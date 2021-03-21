@@ -403,7 +403,7 @@ def syllables_to_sentence(wavs, settings=None, number=5, enable=False,
     if by_construct:
         num_of_stn = total_of_stn
     else:
-        num_of_stn = max(1, num_of_stn // 2)
+        pass#num_of_stn = max(1, num_of_stn // 2)
 
     # lists for construct sentence
     possible_lists = normalize([_l[:number * 10] for _l in possible_lists])

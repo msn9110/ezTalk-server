@@ -79,8 +79,8 @@ def create_lstm_model(fingerprint_input, model_settings, is_training):
     x = Reshape([input_time_size, input_frequency_size])(fingerprint_input)
     print(x)
 
-    x = BatchNormalization(b_norm_axis)(x)
-    print(x)
+    '''x = BatchNormalization(b_norm_axis)(x)
+    print(x)'''
 
     '''
     x = Conv2D(128, [5, 4], [1, 1], 'same')(x)
@@ -99,7 +99,7 @@ def create_lstm_model(fingerprint_input, model_settings, is_training):
     if is_training:
         x = Dropout(dropout_prob)(x)
 
-    x = BatchNormalization(b_norm_axis)(x)
+    '''x = BatchNormalization(b_norm_axis)(x)'''
     x = LSTM(n_feature, return_sequences=True, name='LSTM_2')(x)
     print(x)
 
@@ -109,13 +109,13 @@ def create_lstm_model(fingerprint_input, model_settings, is_training):
     # reduce feature
     n_feature = 20
 
-    x = BatchNormalization(b_norm_axis)(x)
+    '''x = BatchNormalization(b_norm_axis)(x)'''
     x = LSTM(n_feature, return_sequences=True, name='LSTM_3')(x)
     print(x)
 
-    x = BatchNormalization(b_norm_axis)(x)
+    '''x = BatchNormalization(b_norm_axis)(x)'''
     s = Dense(1, 'sigmoid', name='weights')(x)
-    v = Dense(label_count, 'elu')(x)
+    v = Dense(label_count,)(x)
 
     scalars = s
     print(scalars)
@@ -125,7 +125,7 @@ def create_lstm_model(fingerprint_input, model_settings, is_training):
 
     # voting
     logits = tf.reduce_sum(x, 1, name='voting')
-    logits = tf.nn.elu(logits)
+    '''logits = tf.nn.elu(logits)'''
     print(logits)
 
     if is_training:
