@@ -157,7 +157,7 @@ def recognize():
                         = cs.syllables_to_sentence(wavefiles, settings, 5, enable=True,
                                                    num_of_stn=num_of_stn,
                                                    by_construct=False, include_construct=True,
-                                                   intelli_select=True,
+                                                   intelli_select=False,
                                                    n_gram_method=4, enable_forget=True
                                                    )
                     # make token to draw wave
