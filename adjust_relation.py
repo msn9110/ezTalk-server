@@ -286,13 +286,14 @@ def adjustment(original_sentence, modified_sentence, settings):
 
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
 
-            flag = True and _adjustment(original_sentence, modified_sentence, data_path)
+            flag = _adjustment(original_sentence, modified_sentence, data_path)
 
         except OSError:
             count += 1
             sleep(1)
         finally:
-            fcntl.flock(lock, fcntl.LOCK_UN)
+            if flag:
+                fcntl.flock(lock, fcntl.LOCK_UN)
             lock.close()
             if flag:
                 break

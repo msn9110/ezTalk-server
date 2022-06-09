@@ -19,13 +19,13 @@ if __name__ == '__main__':
     random.shuffle(n_files)
     random.shuffle(files)
 
-    files = files[:100]
+    files = files[:200]
     n_files = n_files[:10]
 
     i = 1
     for f in n_files:
         wc = WaveClip(f)
-        for _ in range(5):
+        for _ in range(10):
             dst = os.path.join(unknown_dir, 'unknown_{0:d}.wav'.format(i))
             i += 1
             wc.clipWave_toFile(dst, randomly=True)

@@ -138,7 +138,7 @@ def get_recognized_syllable_lists(sentence, number=-1, settings=None, user=None,
 
     sy_lists = cs.syllables_convert(paths, settings, number=number, enable=True, **kwargs)
 
-    return settings['id'], settings, sentence, sy_lists
+    return settings, sentence, sy_lists
 
 
 def recognize_wav_file(path, **kwargs):

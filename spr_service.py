@@ -8,6 +8,7 @@ import create_syllable as cs
 from adjust_relation import adjustment as adjust
 from multiprocessing import Process
 from subprocess import call
+from pypinyin_ext.zhuyin import convert_to_zhuyin
 
 from config import restful_settings, set_pid, verify
 
@@ -153,13 +154,29 @@ def recognize():
             response = {"success": len(wavefiles), "uploaded": True}
             if len(wavefiles) > 0:
                 try:
-                    possible_lists, sentence_rec, stns\
-                        = cs.syllables_to_sentence(wavefiles, settings, 5, enable=True,
-                                                   num_of_stn=num_of_stn,
-                                                   by_construct=False, include_construct=True,
-                                                   intelli_select=False,
-                                                   n_gram_method=4, enable_forget=True
-                                                   )
+                    network_combine = 0
+                    if network_combine:
+                        possible_lists = cs.syllables_convert(wavefiles, settings, number=50)
+                        data = {'data': possible_lists}
+
+                        r = requests.post('http://localhost:5555/construct', json=data)
+                        stns = r.json()['response']
+                        s = stns[0]
+                        zhuyins = [re.sub('[_˙ˊˇˋ]', '', _[0]) for _ in convert_to_zhuyin(s)]
+                        i = 0
+                        for z, pl in zip(zhuyins, possible_lists):
+                            if z not in dict(pl):
+                                possible_lists[i].append((z, 0.0))
+                            i += 1
+                        sentence_rec = [s] + list(zip(s, zhuyins))
+                    else:
+                        possible_lists, sentence_rec, stns\
+                            = cs.syllables_to_sentence(wavefiles, settings, 5, enable=True,
+                                                       num_of_stn=num_of_stn,
+                                                       by_construct=False, include_construct=True,
+                                                       intelli_select=True,
+                                                       n_gram_method=4, enable_forget=True
+                                                       )
                     # make token to draw wave
                     token_dir = os.path.join(uploads_dir, 'token')
                     if os.path.exists(token_dir):
@@ -296,6 +313,7 @@ def remove_file(filename, target_dir):
 @app.route('/remove', methods=['DELETE', 'PUT'])
 def remove():
     data = verify(request.get_json())
+    print('del call')
     if data['accept']:
         uploads_dir = data['settings']['voice_data_path']['uploads_dir']
         data = data['content']

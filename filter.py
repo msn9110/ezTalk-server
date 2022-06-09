@@ -5,7 +5,7 @@ def butter_bandpass(lowcut, highcut, fs, order=5):
     nyq = 0.5 * fs
     low = lowcut / nyq
     high = highcut / nyq
-    b, a = butter(order, [low, high], btype='band')
+    b, a, *_ = butter(order, [low, high], btype='band')
     return b, a
 
 
