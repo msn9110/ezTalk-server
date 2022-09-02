@@ -1,7 +1,7 @@
 import os
 
-import tensorflow as tf
-tf = tf.compat.v1
+import tensorflow._api.v2.compat.v1 as tf
+tf.disable_v2_behavior()
 
 _to_print_results = False if 'to_print_results' in os.environ \
     and os.environ['to_print_results'] == '0' else True

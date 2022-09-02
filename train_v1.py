@@ -3,15 +3,14 @@ import os.path
 import sys, os
 
 from six.moves import xrange  # pylint: disable=redefined-builtin
-import tensorflow as tf
+import tensorflow._api.v2.compat.v1 as tf
+tf.disable_v2_behavior()
 
 import input_data
 import models
-from tensorflow.python.platform import gfile
+gfile = tf.io.gfile
 
 from config import write_log, set_pid
-
-tf = tf.compat.v1
 FLAGS = None
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 

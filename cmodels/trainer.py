@@ -3,14 +3,13 @@ import os.path
 import sys
 
 from six.moves import xrange  # pylint: disable=redefined-builtin
-import tensorflow as tf
 
 import idata as input_data
 import model as models
-from tensorflow.python.platform import gfile
+import tensorflow._api.v2.compat.v1 as tf
+tf.disable_v2_behavior()
+gfile = tf.io.gfile
 FLAGS = None
-
-tf = tf.compat.v1
 
 
 def main(_):

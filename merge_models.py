@@ -1,14 +1,13 @@
 import argparse
 import os.path
 
-import tensorflow as tf
 from utils.tf_graph_util import convert_variables_to_constants
 
 import models
+import tensorflow._api.v2.compat.v1 as tf
+tf.disable_v2_behavior()
 
 FLAGS = None
-
-tf = tf.compat.v1
 
 
 def print_num_of_total_parameters(output_detail=False, output_to_logging=False):

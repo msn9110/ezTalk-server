@@ -1,5 +1,6 @@
-import tensorflow as tf
-from tensorflow.python.keras.layers import Dense, Dropout, Reshape, ReLU, ELU
+from tensorflow.keras.layers import Dense, Dropout, Reshape, ReLU, ELU
+import tensorflow._api.v2.compat.v1 as tf
+tf.disable_v2_behavior()
 
 
 def prepare_model_settings(num_inputs, num_outputs, input_units):

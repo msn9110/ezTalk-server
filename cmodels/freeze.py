@@ -2,14 +2,13 @@ import argparse
 import os.path
 import sys
 
-import tensorflow as tf
-
 import idata as input_data
 import model as models
 
-FLAGS = None
+import tensorflow._api.v2.compat.v1 as tf
+tf.disable_v2_behavior()
 
-tf = tf.compat.v1
+FLAGS = None
 
 
 def create_inference_graph():

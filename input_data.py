@@ -6,14 +6,12 @@ import re
 
 import numpy as np
 from six.moves import xrange  # pylint: disable=redefined-builtin
-import tensorflow as tf
+import tensorflow._api.v2.compat.v1 as tf
+tf.disable_v2_behavior()
 
-from tensorflow.python.platform import gfile
-from tensorflow.python.util import compat
+gfile = tf.io.gfile
 
 from phoneme import zelements, optionals, zindexes, idx_mode, sim_tables, sels
-
-tf = tf.compat.v1
 
 
 MAX_NUM_WAVS_PER_CLASS = 2**27 - 1  # ~134M
@@ -110,7 +108,7 @@ def which_set(filename, validation_percentage, testing_percentage, salt=0):
     # To do that, we need a stable way of deciding based on just the file name
     # itself, so we do a hash of that and then use that to generate a
     # probability value that we use to assign it.
-    hash_name_hashed = hashlib.sha1(compat.as_bytes(hash_name)).hexdigest()
+    hash_name_hashed = hashlib.sha1(hash_name.encode('utf-8')).hexdigest()
     percentage_hash = (((int(hash_name_hashed, 16) + salt) %
                         (MAX_NUM_WAVS_PER_CLASS + 1)) *
                        (100.0 / MAX_NUM_WAVS_PER_CLASS))
@@ -234,11 +232,11 @@ class AudioProcessor(object):
             p.start()
 
     def _background_generator(self, mode):
-        import tensorflow as _tf
+
         print(mode, self.g, self.config)
 
         if mode in ['validation', 'testing']:
-            sess = _tf.Session(graph=self.g, config=self.config)
+            sess = tf.Session(graph=self.g, config=self.config)
             print(mode, 'generator\'s session has been initialized successfully.')
             set_size = self.set_size(mode)
             batch_size = self.training_set_settings['how_many']
@@ -251,7 +249,7 @@ class AudioProcessor(object):
                                                                                 len(self.results[mode])) )
 
         if mode == 'training':
-            sess = _tf.Session(graph=self.g, config=self.config)
+            sess = tf.Session(graph=self.g, config=self.config)
             q = self.queue
             max_qsize = 10
             while True:
@@ -335,7 +333,7 @@ class AudioProcessor(object):
 
         # Look through all the subfolders to find audio samples
         search_path = os.path.join(self.data_dir, '*', '*.wav')
-        for wav_path in gfile.Glob(search_path):
+        for wav_path in gfile.glob(search_path):
             _, word = os.path.split(os.path.dirname(wav_path))
             word = word.lower()
             # Treat the '_background_noise_' folder as a special case,
@@ -386,7 +384,7 @@ class AudioProcessor(object):
         if self.test_dir:
             testing_set = []
             search_path = os.path.join(self.test_dir, '*', '*.wav')
-            for wav_path in gfile.Glob(search_path):
+            for wav_path in gfile.glob(search_path):
                 _, word = os.path.split(os.path.dirname(wav_path))
                 label = optionals[self.mode][UNKNOWN_WORD_INDEX]
                 word = word.lower()
@@ -434,7 +432,7 @@ class AudioProcessor(object):
             wav_decoder = tf.audio.decode_wav(wav_loader, desired_channels=1)
             search_path = os.path.join(self.data_dir, BACKGROUND_NOISE_DIR_NAME,
                                        '*.wav')
-            for wav_path in gfile.Glob(search_path):
+            for wav_path in gfile.glob(search_path):
                 wav_data = sess.run(
                     wav_decoder,
                     feed_dict={wav_filename_placeholder: wav_path}).audio.flatten()
