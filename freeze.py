@@ -4,11 +4,12 @@ import sys
 
 from utils.tf_graph_util import convert_variables_to_constants
 import models
-import tensorflow._api.v2.compat.v1 as tf
-tf.disable_v2_behavior()
+
+from _tf_ import tf
 
 
 FLAGS = None
+
 
 def create_inference_graph(wanted_words, sample_rate, clip_duration_ms,
                            window_size_ms, window_stride_ms,

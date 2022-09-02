@@ -6,8 +6,8 @@ import re
 
 import numpy as np
 from six.moves import xrange  # pylint: disable=redefined-builtin
-import tensorflow._api.v2.compat.v1 as tf
-tf.disable_v2_behavior()
+
+from _tf_ import tf
 
 gfile = tf.io.gfile
 

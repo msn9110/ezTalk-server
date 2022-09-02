@@ -1,6 +1,6 @@
 from tensorflow.keras.layers import Flatten, Conv2D, MaxPool2D, Dense, Reshape, Dropout, LSTM, ReLU, BatchNormalization, Bidirectional
-import tensorflow._api.v2.compat.v1 as tf
-tf.disable_v2_behavior()
+
+from _tf_ import tf
 
 
 def prepare_model_settings(label_count, sample_rate, clip_duration_ms,

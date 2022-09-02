@@ -5,8 +5,7 @@ import sys
 import idata as input_data
 import model as models
 
-import tensorflow._api.v2.compat.v1 as tf
-tf.disable_v2_behavior()
+from cmodels import tf
 
 FLAGS = None
 
